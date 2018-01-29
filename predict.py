@@ -5,15 +5,16 @@ from include.data import getDataSet
 from include.model import model
 import tkinter
 
-dataSetNames = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-test_x, test_y, test_l = getDataSet("test", cifar=10)
-x, y, output, global_step, y_pred_cls = model()
+CIFAR=100
+
+test_x, test_y, test_l = getDataSet("test" + str(CIFAR), CIFAR)
+x, y, output, global_step, y_pred_cls = model(CIFAR)
 
 _IMG_SIZE = 32
 _NUM_CHANNELS = 3
 _BATCH_SIZE = 128
-_CLASS_SIZE = 10
-_SAVE_PATH = "./tensorboard/cifar-10/"
+_CLASS_SIZE = CIFAR
+_SAVE_PATH = "./tensorboard/cifar-" + str(CIFAR) + "/"
 
 saver = tf.train.Saver()
 sess = tf.Session()
@@ -52,8 +53,8 @@ for i in range(_CLASS_SIZE):
 for i in range(_CLASS_SIZE):
     b = tkinter.Entry(root, text="", width=10)
     b1 = tkinter.Entry(root, text="", width=10)
-    b.insert(0, dataSetNames[i])
-    b1.insert(0, dataSetNames[i])
+    b.insert(0, test_l[i])
+    b1.insert(0, test_l[i])
     b.configure(state='readonly')
     b1.configure(state='readonly')
     b.grid(row=i, column=_CLASS_SIZE)

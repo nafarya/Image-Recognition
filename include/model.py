@@ -2,10 +2,10 @@ import tensorflow as tf
 from math import sqrt
 
 
-def model():
+def model(num_classes):
     _IMAGE_SIZE = 32
     _IMAGE_CHANNELS = 3
-    _NUM_CLASSES = 10
+    _NUM_CLASSES = num_classes
     _RESHAPE_SIZE = 4*4*128
 
     with tf.name_scope('data'):

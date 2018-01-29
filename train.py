@@ -1,24 +1,27 @@
+from time import time
+
 import numpy as np
 import tensorflow as tf
 from sklearn.metrics import confusion_matrix
-from time import time
+
 from include.data import getDataSet
 from include.model import model
-import matplotlib.pyplot as plt
 
-train_x, train_y, train_l = getDataSet(cifar=10)
-test_x, test_y, test_l = getDataSet("test", cifar=10)
+CIFAR=100
 
-x, y, output, global_step, y_pred_cls = model()
+train_x, train_y, train_l = getDataSet("train" + str(CIFAR), CIFAR)
+test_x, test_y, test_l = getDataSet("test" + str(CIFAR), CIFAR)
+
+x, y, output, global_step, y_pred_cls = model(CIFAR)
 
 globalAccuracy = []
 
 _IMG_SIZE = 32
 _NUM_CHANNELS = 3
 _BATCH_SIZE = 128
-_CLASS_SIZE = 10
+_CLASS_SIZE = CIFAR
 _ITERATION = 20000
-_SAVE_PATH = "./tensorboard/cifar-10/"
+_SAVE_PATH = "./tensorboard/cifar-" + str(CIFAR) + "/"
 
 loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=output, labels=y))
 optimizer = tf.train.RMSPropOptimizer(learning_rate=1e-4).minimize(loss, global_step=global_step)
