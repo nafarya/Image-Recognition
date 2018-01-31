@@ -2,7 +2,6 @@ import pickle as pkl
 
 import numpy as np
 import tensorflow as tf
-from skimage.io import imsave
 
 #parse dataset as image from /data_set/cifar_10/data_batch_* and add it to tensorboard.
 
